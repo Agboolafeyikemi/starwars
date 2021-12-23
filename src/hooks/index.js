@@ -42,11 +42,6 @@ export const useSelectedMovie = ({ selected }) => {
   useEffect(() => {
     setLoadingCharacters(true);
 
-    // if (alreadyFetched.length > 0) {
-    //     setCharacters(alreadyFetched[0]);
-    //     console.log('xxxx')
-    // }
-
     if (charactersUrl.length > 0) {
       const req = charactersUrl.map((url) =>
         axios.get(url).then((response) => {

@@ -1,38 +1,125 @@
-.App {
+.wrapper {
+  background-color: black;
+  width: 100%;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main {
+  min-height: calc(100vh - 10rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  border: 1rem double rgba(255, 204, 24, 0.7);
+  padding: 4rem 0;
+}
+
+#logo {
+  height: 4rem;
+}
+
+table {
+  z-index: 5;
+  margin-top: 2rem;
+  margin-bottom: 4rem bor;
+}
+
+th {
+  background: rgba(255, 204, 24, 0.3);
+}
+
+th button {
+  padding: 1rem 5rem;
+  background: transparent;
+  border: none;
+  width: 100%;
+  height: 100%;
+  color: #ffcc18;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+th button:focus {
+  outline: 2px solid white;
+}
+
+th img {
+  margin-left: 1rem;
+  pointer-events: none;
+}
+
+th img[data-toggle="desc"] {
+  transform: rotate(180deg);
+  margin-left: 1rem;
+  pointer-events: none;
+}
+
+th img[data-toggle="none"] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+tbody td {
+  padding: 1rem;
+  background: rgba(255, 204, 24, 0.1);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+tfoot tr {
+  padding: 1rem 0;
+  background: rgba(255, 204, 24, 0.3);
+  color: #ffcc18;
+  position: sticky;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+tfoot td {
+  padding: 0.6rem 1.5rem;
+  text-align: right;
+  color: white;
+  font-weight: bold;
+}
+
+td p {
+  font-size: 0.8rem;
+  padding-bottom: 0;
+  margin: 0;
+  font-weight: normal;
+}
+
+#error {
+  font-size: 2rem;
+  color: white;
+}
+
+#playCrawl {
+  text-decoration: slategrey;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #ffcc18;
+  outline: none;
+  padding: 0.8rem;
+  color: #ffcc18;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: 0.8rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  tfoot td {
+    padding: 0.3rem 1rem;
+  }
+
+  tfoot tr {
+    padding: 0.5rem 0;
+  }
+  tbody td {
+    padding: 0.5rem;
+  }
+  th button {
+    padding: 0.5rem 1rem;
+  }
+  #logo {
+    height: 3rem;
   }
 }

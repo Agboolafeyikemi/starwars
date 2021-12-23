@@ -1,0 +1,106 @@
+
+  /* Set the animation, color, size and hide the text */
+  .intro {
+      position: absolute;
+      top: 30%;
+      z-index: 1000;
+      animation: intro 3s ease-out 0s;
+      color: #FFCC18;
+      -webkit-text-fill-color: #FFCC18; 
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: white;
+      font-weight: 400;
+      font-size: 300%;
+      opacity: 0;
+      width: 100%;
+  }
+  
+  @keyframes intro {
+      0% {
+          opacity: 0;
+      }
+      20% {
+          opacity: 1;
+      }
+      90% {
+          opacity: 1;
+      }
+      100% {
+          opacity: 0;
+      }
+  }
+  
+  p {
+    color: #FFCC18;
+  }
+  
+  /* Set the font, lean the board, position it */
+  #board {
+    font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+    transform: perspective(350px) rotateX(25deg);
+    transform-origin: 50% 100%;
+    text-align: justify;
+    position: absolute;
+    margin-left: -9em;
+    font-weight: bold;
+    overflow: hidden;
+    font-size: 350%;
+    height: 50em;
+    width: 18em;
+    bottom: 0;
+    left: 50%;
+  }
+  
+  #board:after {    
+    position: absolute;
+    content: ' ';
+    bottom: 60%;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+
+  #fade {
+    height: 45vh;
+    background-image: linear-gradient(0deg, transparent, black 50%);
+    z-index: 200;
+    width: 100%;
+    position: relative;
+  }
+  
+  /* Set the scrolling animation and position it */
+  #content {
+    animation: scroll 15s linear 0s;
+    position: absolute;
+    top: 100%;
+  }
+  
+  #title, #subtitle {
+    text-align: center;
+  }
+  
+  @keyframes scroll {
+      0% {
+          top: 100%;
+      }
+      100% {
+          top: -170%;
+      }
+  }
+
+
+  @media only screen and (max-width: 600px) {
+    .intro {
+        font-size: 2rem
+    }
+
+    #fade{
+        height: 80vh;
+    }
+
+    #board {
+        font-size: 2rem;
+
+    }
+
+  }

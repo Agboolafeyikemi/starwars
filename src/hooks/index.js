@@ -39,9 +39,6 @@ export const useSelectedMovie = ({ selected }) => {
 
   const charactersUrl = selected ? selected.characters : [];
 
-  // const alreadyFetched = previousSelections.current.filter((title) => title === selected.title);
-  // console.log("===>", alreadyFetched);
-
   useEffect(() => {
     setLoadingCharacters(true);
 

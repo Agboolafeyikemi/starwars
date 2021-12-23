@@ -9,15 +9,11 @@
 .custom-select select {
   font-size: 15px;
   color: white;
-  -webkit-text-fill-color: white;
-  -webkit-text-stroke-width: 0.3px;
-  -webkit-text-stroke-color: #fcdf2b;
   user-select: none;
   top: 0;
   left: 0;
   z-index: 1;
   background: rgba(0, 0, 0, 1);
-  -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
   padding: 0.6rem 2.4rem 0.6rem 0.8rem;

@@ -1,57 +1,75 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  ReactNode,
+  useCallback,
+} from "react";
 import { calculateHeight, sortedBy, sort } from "../utils";
 import toogleIcon from "../assets/toogle-icon.svg";
 
-const FilterableTable = ({ data }) => {
-  const [sortType, setSortType] = useState({ field: "", type: "" });
-  const [newData, setNewData] = useState(data);
-  const genderSet = useRef(new Set());
-  const gendersToArray = useRef([]);
+interface Character {
+  gender: string;
+  name: string;
+  character?: Object[];
+  height?: ReactNode;
+}
 
-  data.map((item) => {
+const FilterableTable = React.memo(({ data }: any) => {
+  const [sortType, setSortType] = useState({ field: "", type: "" });
+  const [newData, setNewData] = useState<Character[]>(data);
+  const genderSet = useRef(new Set());
+  const gendersToArray = useRef<HTMLDivElement | unknown[]>([]);
+
+  data.map((item: any) => {
     return genderSet.current.add(item.gender);
   });
 
   gendersToArray.current = Array.from(genderSet.current);
-
   useEffect(() => {
     setNewData(data);
   }, [data]);
 
-  const handleSort = (e) => {
-    const field = e.target.id;
+  const handleSort = useCallback(
+    (e: any) => {
+      const field = e.target.id;
 
-    if (sortType.field !== field) {
-      setNewData(sort(data, field, "asc"));
-      setSortType({ field, type: "asc" });
-    } else if (sortType.field === field && sortType.type === "asc") {
-      setNewData(sort(data, field, "desc"));
-      setSortType({ field, type: "desc" });
-    } else if (sortType.field === field && sortType.type === "desc") {
-      setNewData(sort(data, field, "asc"));
-      setSortType({ field, type: "asc" });
-    }
-  };
+      if (sortType.field !== field) {
+        setNewData(sort(data, field, "asc"));
+        setSortType({ field, type: "asc" });
+      } else if (sortType.field === field && sortType.type === "asc") {
+        setNewData(sort(data, field, "desc"));
+        setSortType({ field, type: "desc" });
+      } else if (sortType.field === field && sortType.type === "desc") {
+        setNewData(sort(data, field, "asc"));
+        setSortType({ field, type: "asc" });
+      }
+    },
+    [data, sortType]
+  );
 
-  const handleGenderFilter = (e) => {
-    const selectedGender = e.target.value;
-    let result;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleGenderFilter = useCallback(
+    (e: { target: { value: any } }) => {
+      const selectedGender = e.target.value;
+      let result;
 
-    if (selectedGender !== "all") {
-      result = data.filter((c) => c.gender === selectedGender);
-    } else {
-      result = data;
-    }
-    setNewData(result);
-    calculateHeight(newData);
-  };
-
+      if (selectedGender !== "all") {
+        result = data.filter((c: any) => c.gender === selectedGender);
+      } else {
+        result = data;
+      }
+      setNewData(result);
+      calculateHeight(newData);
+    },
+    [data, newData]
+  );
   return (
     <>
       <div className="custom-select">
         <select onChange={handleGenderFilter} defaultValue="Select">
           <option value="all">Filter Gender (All)</option>
-          {gendersToArray.current.map((item) => (
+          {gendersToArray.current.map((item: any) => (
             <option key={item} value={item}>{`${item
               .charAt(0)
               .toUpperCase()}${item.slice(1)}`}</option>
@@ -116,7 +134,7 @@ const FilterableTable = ({ data }) => {
                 {newData.length}
               </div>
             </td>
-            <td colSpan="2">
+            <td colSpan={2}>
               <div>
                 <p>Total Height</p>
                 {calculateHeight(newData)}
@@ -127,6 +145,6 @@ const FilterableTable = ({ data }) => {
       </table>
     </>
   );
-};
+});
 
 export default FilterableTable;

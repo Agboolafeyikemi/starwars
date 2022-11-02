@@ -1,6 +1,19 @@
 import { useState, useEffect, useRef, SetStateAction } from "react";
 import { sortMovieByDate } from "../utils";
 import axios from "axios";
+interface Selections {
+  characters: Object[];
+  title: string;
+}
+
+interface Character {
+  gender: string;
+  name: string;
+  character?: Object[];
+  height: Number;
+  release_date?: string;
+  title?: string;
+}
 
 /**
  * custom hooks to fetch list movie
@@ -9,13 +22,13 @@ import axios from "axios";
 export const useSwapiApi = () => {
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [hasError, setErrors] = useState<Boolean>(false);
-  const [movies, setMovies] = useState<any[]>([]);
+  const [movies, setMovies] = useState<Character[]>([]);
 
   async function fetchMovies() {
     setIsLoading(true);
     axios
       .get("https://swapi.dev/api/films/")
-      .then((response: { data: { results: any[] } }) => {
+      .then((response: { data: { results: Character[] } }) => {
         const sortedList = sortMovieByDate(response.data.results);
         setIsLoading(false);
         setMovies(sortedList);
@@ -28,47 +41,30 @@ export const useSwapiApi = () => {
   useEffect(() => {
     fetchMovies();
     return () => {};
-  }, [hasError]);
+  }, []);
 
   return { isLoading, fetchMovies, setIsLoading, hasError, movies };
 };
-
-type SelectionsObject = [
-  {
-    characters: Object[];
-    title: String;
-  }
-];
-interface Selections {
-  characters: Object[];
-  title: string;
-}
-
-interface Character {
-  gender: string;
-  name: string;
-  character?: Object[];
-  height: Number;
-}
 
 export const useSelectedMovie = ({ selected }: { selected: Selections }) => {
   const [isLoadingCharacters, setLoadingCharacters] = useState(false);
   const [characters, setCharacters] = useState<any[]>([]);
   const [fetchCharacterError, setFetchCharacterError] = useState(false);
-  const previousSelections = useRef<SelectionsObject | Selections[]>([]);
+  const previousSelections = useRef<Selections[]>([]);
 
   useEffect(() => {
     const charactersUrl = selected ? selected.characters : [];
-    const isPrevSelection =
+    const selectedBefore =
       previousSelections.current.length > 0 &&
       previousSelections.current.find(
         (Prevselected) => Prevselected.title === selected.title
       );
 
-    if (isPrevSelection) {
-      setCharacters(isPrevSelection.characters);
+    if (selectedBefore) {
+      setCharacters(selectedBefore.characters);
       return;
     }
+
     if (charactersUrl.length > 0) {
       setLoadingCharacters(true);
       const req = charactersUrl.map((url: any) =>
@@ -90,7 +86,7 @@ export const useSelectedMovie = ({ selected }: { selected: Selections }) => {
           setFetchCharacterError(true);
         });
     }
-  }, [fetchCharacterError, selected]);
+  }, [selected]);
 
   return { isLoadingCharacters, fetchCharacterError, characters };
 };

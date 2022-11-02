@@ -11,8 +11,8 @@ import toogleIcon from "../assets/toogle-icon.svg";
 interface Character {
   gender: string;
   name: string;
-  character?: Object[];
-  height?: ReactNode;
+  character: Object[];
+  height: ReactNode;
 }
 
 const FilterableTable = React.memo(({ data }: any) => {
@@ -48,14 +48,13 @@ const FilterableTable = React.memo(({ data }: any) => {
     [data, sortType]
   );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleGenderFilter = useCallback(
     (e: { target: { value: any } }) => {
       const selectedGender = e.target.value;
       let result;
 
       if (selectedGender !== "all") {
-        result = data.filter((c: any) => c.gender === selectedGender);
+        result = data.filter((c: Character) => c.gender === selectedGender);
       } else {
         result = data;
       }

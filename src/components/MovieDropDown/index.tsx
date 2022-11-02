@@ -2,10 +2,15 @@ import React, { memo } from "react";
 import Loading from "../Loading";
 import "./moviedropdown.css";
 
-interface Movie {
-  release_date: React.Key;
-  title: string;
+interface Character {
+  gender: string;
+  name: string;
+  character?: Object[];
+  height: Number;
+  release_date?: string;
+  title?: string;
 }
+
 const MovieDropDown = ({
   isLoading,
   data,
@@ -13,8 +18,8 @@ const MovieDropDown = ({
   value,
 }: {
   isLoading: Boolean;
-  data: Movie[];
-  onChange: (e: { target: { value: any } }) => void;
+  data: Character[];
+  onChange: (e: { target: { value: string } }) => void;
   value: string[];
 }) => {
   if (isLoading) {

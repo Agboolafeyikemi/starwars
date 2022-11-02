@@ -8,15 +8,14 @@ import MovieDropDown from "./components/MovieDropDown";
 import FilterableTable from "./components/FilterableTable";
 import OpenCrawl from "./components/OpenCrawl";
 
-const App = React.memo(() => {
+const App = () => {
   const { isLoading, hasError, movies } = useSwapiApi();
   const selectedMovie = useRef<HTMLDivElement | any>(null);
   const [showOpenCrawl, setShowOpenCrawl] = useState<boolean>(false);
 
-  const { isLoadingCharacters, fetchCharacterError, characters } =
-    useSelectedMovie({
-      selected: selectedMovie.current ? selectedMovie.current : null,
-    });
+  const { fetchCharacterError, characters } = useSelectedMovie({
+    selected: selectedMovie.current ? selectedMovie.current : null,
+  });
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -30,7 +29,7 @@ const App = React.memo(() => {
   }, [characters, showOpenCrawl]);
 
   const handleMovieSelection = useCallback(
-    (e: { target: { value: any } }) => {
+    (e: { target: { value: string } }) => {
       const selectedTitle = e.target.value;
       const movie = movies.find((m: any) => m.title === selectedTitle);
       selectedMovie.current = movie;
@@ -71,6 +70,6 @@ const App = React.memo(() => {
       </div>
     </>
   );
-});
+};
 
 export default App;
